@@ -1,0 +1,7 @@
+services:
+  local-captcha:
+    image: siocode/local-captcha:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./local-captcha.config.yaml:/config.yaml:ro

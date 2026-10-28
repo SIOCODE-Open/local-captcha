@@ -1,0 +1,39 @@
+port: 8080
+base_url: http://localhost:8080
+hostname: localhost
+allowed_origins: "*"
+mode: auto_pass
+default_score: 0.9
+token_ttl_seconds: 300
+verify_once: true
+allow_any_site: true
+allow_any_secret: true
+sites:
+  - sitekey: "site-key-1"
+    secret: "secret-key-1"
+    mode: "auto_pass"
+    default_score: 0.9
+    hostname: "app.example.local"
+  - sitekey: "site-key-challenge"
+    secret: "secret-key-challenge"
+    mode: "challenge"
+    default_score: 0.8
+  - sitekey: "site-key-bot"
+    secret: "secret-key-bot"
+    mode: "auto_pass"
+    default_score: 0.1
+  - sitekey: "site-key-fail"
+    secret: "secret-key-fail"
+    mode: "always_fail"
+    error_codes:
+      - "custom-site-fail-code"
+magic_tokens:
+  - token: "custom-magic-pass"
+    success: true
+    score: 0.75
+    action: "custom_action"
+    hostname: "magic.example.local"
+  - token: "custom-magic-fail"
+    success: false
+    error_codes:
+      - "custom-magic-error"

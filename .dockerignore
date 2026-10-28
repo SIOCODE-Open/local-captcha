@@ -1,0 +1,6 @@
+*.exe
+local-captcha
+example/
+e2e/
+.vscode/
+*.md

@@ -1,0 +1,56 @@
+port: 8080
+base_url: http://localhost:8080
+hostname: localhost
+allowed_origins: "*"                    # CORS allowed origins (optional, defaults to *)
+
+# Global CAPTCHA behavior (optional, defaults shown)
+mode: auto_pass                         # "auto_pass", "challenge", or "always_fail"
+default_score: 0.9                      # Default reCAPTCHA v3 score (0.0 - 1.0)
+token_ttl_seconds: 300                  # Token expiration time in seconds (5 minutes)
+verify_once: true                       # Each issued token can only be verified once
+allow_any_site: true                    # Allow sitekeys not explicitly listed in sites
+allow_any_secret: true                  # Allow secrets not explicitly listed in sites
+force_error_codes: []                   # Force all verifications to fail with these error codes
+response_delay_ms: 0                    # Artificial latency in milliseconds
+
+# Site-specific configurations
+sites:
+  # Standard site that automatically passes with a high score
+  - sitekey: "site-key-1"
+    secret: "secret-key-1"
+    hostname: "localhost"
+    mode: "auto_pass"
+    default_score: 0.9
+
+  # Site that requires solving the interactive challenge UI
+  - sitekey: "site-key-challenge"
+    secret: "secret-key-challenge"
+    hostname: "localhost"
+    mode: "challenge"
+    default_score: 0.8
+
+  # Site that simulates a low v3 bot score
+  - sitekey: "site-key-bot"
+    secret: "secret-key-bot"
+    hostname: "localhost"
+    mode: "auto_pass"
+    default_score: 0.1
+
+  # Site that always fails verification with specific error codes
+  - sitekey: "site-key-fail"
+    secret: "secret-key-fail"
+    mode: "always_fail"
+    error_codes:
+      - "invalid-input-response"
+
+# Custom magic tokens for deterministic backend testing (optional)
+magic_tokens:
+  - token: "custom-pass-token"
+    success: true
+    score: 0.95
+    action: "login"
+    hostname: "localhost"
+  - token: "custom-fail-token"
+    success: false
+    error_codes:
+      - "invalid-input-response"

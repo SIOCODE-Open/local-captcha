@@ -1,0 +1,25 @@
+port: 8080
+base_url: http://localhost:8081
+hostname: strict.example.local
+allowed_origins: "http://localhost:3000,http://example.com"
+mode: challenge
+default_score: 0.85
+token_ttl_seconds: 1
+verify_once: true
+allow_any_site: false
+allow_any_secret: false
+sites:
+  - sitekey: "strict-site-1"
+    secret: "strict-secret-1"
+    mode: "auto_pass"
+    default_score: 0.95
+    hostname: "strict1.example.local"
+  - sitekey: "strict-site-challenge"
+    secret: "strict-secret-challenge"
+    mode: "challenge"
+    default_score: 0.7
+  - sitekey: "strict-site-fail"
+    secret: "strict-secret-fail"
+    mode: "always_fail"
+    error_codes:
+      - "strict-site-error"
